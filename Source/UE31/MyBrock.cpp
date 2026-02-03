@@ -5,6 +5,7 @@
 AMyBrock::AMyBrock()
 	: m_fvInitPos(FVector::ZeroVector), m_bFinish(false), m_bStop(false)
 	, m_bMove(false), m_bLock(false), m_pMoveTarget(nullptr), m_fScaler(5.5f)
+	, m_pPlayerCharacter(nullptr)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -14,13 +15,14 @@ AMyBrock::AMyBrock()
 void AMyBrock::BeginPlay()
 {
 	Super::BeginPlay();
-	SetInitPos(m_pMoveTarget->GetComponentLocation());
+	m_fvInitPos = GetActorLocation();
 }
 
 // Called every frame
 void AMyBrock::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
 }
 
 //操作キャラクターがオブジェクトから見てどの方向にいるかを把握する関数
@@ -52,7 +54,7 @@ void AMyBrock::MoveBrock(FVector offset)
 {
 	if (!m_bStop)
 	{
-		m_pMoveTarget->AddWorldOffset(offset);
+		m_pMoveTarget->AddActorWorldOffset(offset);
 		SetBrockFinish(false);
 	}
 }
@@ -62,16 +64,10 @@ void AMyBrock::ResetBrockPos()
 	SetBrockFinish(m_bFinish);
 	if (!m_bStop)
 	{
-		m_pMoveTarget->SetWorldLocation(m_fvInitPos, false, nullptr, ETeleportType::TeleportPhysics);
+		m_pMoveTarget->SetActorLocation(m_fvInitPos, false, nullptr, ETeleportType::TeleportPhysics);
 	}
 	SetBrockStop(false);
 	SetBrockMove(false);
-}
-
-FVector AMyBrock::SetInitPos(FVector pos)
-{
-	m_fvInitPos = pos;
-	return m_fvInitPos;
 }
 
 void AMyBrock::SetBrockFinish(bool finish)

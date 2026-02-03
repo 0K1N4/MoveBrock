@@ -45,7 +45,7 @@ void AMyPanel::Tick(float DeltaTime)
 			}
 		}
 		//縦方向且つベクトルが左から中心へ向かう時
-		else if(m_pBrock->m_fvOldVec.X < 0.0f)
+		if(m_pBrock->m_fvOldVec.X < 0.0f)
 		{
 			switch (m_eCollisionTypeX)
 			{
@@ -82,7 +82,7 @@ void AMyPanel::Tick(float DeltaTime)
 			}
 		}
 		//横方向且つベクトルが後ろから中心へ向かう時
-		else if (m_pBrock->m_fvOldVec.Y < 0.0f)
+		if (m_pBrock->m_fvOldVec.Y < 0.0f)
 		{
 			switch (m_eCollisionTypeY)
 			{

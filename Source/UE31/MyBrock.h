@@ -6,6 +6,8 @@
 #include "Components/TimelineComponent.h"
 #include "MyBrock.generated.h"
 
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerTouch, AMyBrock*, Brock);
+
 UCLASS()
 class UE31_API AMyBrock : public AActor
 {
@@ -28,7 +30,7 @@ protected:	//íËêî
 	float m_fScaler;
 
 protected:	//ïœêî
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "MyBrock")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyBrock")
 	FVector m_fvInitPos;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "MyBrock")
@@ -69,12 +71,12 @@ protected:	//ä÷êî
 	void ResetBrockPos();
 
 protected:	//É|ÉCÉìÉ^
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* m_pMoveTarget;
+	UPROPERTY(EditAnywhere, Category = "MyBrock")
+	AActor* m_pMoveTarget;
+
+	class AMyCharacter* m_pPlayerCharacter;	
 
 protected:	//setä÷êî
-	UFUNCTION(BlueprintCallable, Category = "MyBrock")
-	FVector SetInitPos(FVector pos);
 
 	UFUNCTION(BlueprintCallable, Category = "MyBrock")
 	void SetBrockFinish(bool finish);
@@ -84,4 +86,5 @@ protected:	//setä÷êî
 
 	UFUNCTION(BlueprintCallable, Category = "MyBrock")
 	void SetBrockMove(bool move);
+
 };
